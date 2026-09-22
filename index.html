@@ -156,6 +156,31 @@
   .kicker { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); }
   h2.detail-title { font-family: Cinzel, serif; font-size: clamp(34px, 5vw, 54px); line-height: 1.05; margin: 0; letter-spacing: 0.03em; }
   .detail-sub { margin: 0; font-size: 19px; font-style: italic; color: var(--ink-dimmer); }
+
+  .stat-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+  .stat-chip {
+    display: flex;
+    align-items: baseline;
+    gap: 7px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 7px 11px;
+    background: var(--panel);
+    font-size: 14px;
+    color: var(--tag-ink);
+    line-height: 1.3;
+  }
+  .stat-chip b {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .stat-chip.placeholder { border-style: dashed; opacity: 0.85; }
+
   .portrait {
     margin-top: 10px;
     aspect-ratio: 3 / 4;
@@ -286,6 +311,12 @@
         <div class="kicker">Card I</div>
         <h2 class="detail-title">The Accidental Arcanist</h2>
         <p class="detail-sub">Cursed Scholar — a cataloger who touched the wrong scroll and lost the ability to feel anything at all.</p>
+        <div class="stat-strip">
+          <span class="stat-chip placeholder"><b>Class</b> Sorcerer</span>
+          <span class="stat-chip placeholder"><b>Favorite Cantrip</b> Fire Bolt</span>
+          <span class="stat-chip placeholder"><b>Proficient</b> Simple Weapons · Bow · four dead languages</span>
+          <span class="stat-chip placeholder"><b>Alignment</b> Chaotic Good · knowledge before decorum</span>
+        </div>
         <div class="portrait">
           <img src="assets/images/accidental-arcanist.png" alt="Portrait of the Accidental Arcanist — Jaqobis as a cursed scholar, channeling fire in a ruined library">
         </div>
@@ -326,6 +357,12 @@
         <div class="kicker">Card II</div>
         <h2 class="detail-title">The Hidden Blade</h2>
         <p class="detail-sub">Noble Ward and Political Weapon — taken in at six, trained to cast where no one could see it.</p>
+        <div class="stat-strip">
+          <span class="stat-chip placeholder"><b>Class</b> Wizard</span>
+          <span class="stat-chip placeholder"><b>Favorite Cantrip</b> Minor Illusion</span>
+          <span class="stat-chip placeholder"><b>Proficient</b> Insight · calligrapher's supplies · three courts' tongues</span>
+          <span class="stat-chip placeholder"><b>Alignment</b> Chaotic Good · loyalty over crown</span>
+        </div>
         <div class="portrait">
           <img src="assets/images/hidden-blade.png" alt="Portrait of the Hidden Blade — Jaqobis as a noble ward, dressed in ornate court attire">
         </div>
@@ -366,6 +403,12 @@
         <div class="kicker">Card III</div>
         <h2 class="detail-title">The Wild Ward</h2>
         <p class="detail-sub">Wolfchild Survivor — hidden in a cellar at seven, raised for twelve years by the pack that found him.</p>
+        <div class="stat-strip">
+          <span class="stat-chip"><b>Class</b> Druid</span>
+          <span class="stat-chip"><b>Favorite Cantrip</b> Starry Wisp</span>
+          <span class="stat-chip"><b>Proficient</b> Cartographer's Tools · Herbalism Kit · speaks Druidic &amp; Sylvan</span>
+          <span class="stat-chip"><b>Alignment</b> Chaotic Good · pack before politics</span>
+        </div>
         <div class="portrait">
           <img src="assets/images/wild-ward.png" alt="Portrait of the Wild Ward — Jaqobis as a druid, holding a moon-crowned staff in a misty forest">
         </div>
