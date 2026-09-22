@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jaqobis — Three Cards, One Name</title>
+<meta name="description" content="Three versions of Jaqobis — the Accidental Arcanist, the Hidden Blade, and the Wild Ward. Same name, three creeds.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #14110f;
+    --ink: #e9e1d2;
+    --ink-dim: #c3b8a4;
+    --ink-dimmer: #a89a86;
+    --body-ink: #d5cab6;
+    --border: #45382a;
+    --border-dim: #332a21;
+    --border-section: #2e261e;
+    --panel: #1a1512;
+    --mono-dim: #8d7f6b;
+    --mono-dimmer: #6f6251;
+    --tag-ink: #b9ab95;
+    --gold: oklch(0.72 0.15 55);
+    --gold-hover: #ffe3bd;
+    --purple: oklch(0.72 0.15 300);
+    --purple-hover: #e6cbff;
+    --green: oklch(0.72 0.15 145);
+    --green-hover: #c9f3d4;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "EB Garamond", Georgia, serif;
+  }
+
+  a { color: var(--ink); text-decoration: none; }
+  a:hover { color: #ffffff; }
+  ::selection { background: #3a2f22; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px 120px; }
+
+  /* Header */
+  header {
+    padding: 88px 0 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: center;
+    text-align: center;
+  }
+  .eyebrow {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--mono-dim);
+  }
+  h1.title {
+    font-family: Cinzel, serif;
+    font-weight: 700;
+    font-size: clamp(48px, 9vw, 104px);
+    line-height: 0.95;
+    margin: 0;
+    letter-spacing: 0.04em;
+  }
+  .lede {
+    max-width: 620px;
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+  }
+  .cta-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+  .cta-btn {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: 1px solid var(--border-dim);
+    padding: 12px 20px;
+    border-radius: 999px;
+    color: var(--ink-dim);
+    transition: border-color 180ms ease, color 180ms ease;
+  }
+  .cta-btn:hover { border-color: var(--mono-dim); color: #f5eee0; }
+
+  /* Card grid */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 22px;
+    padding-bottom: 96px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, #1e1813, #171310);
+    padding: 14px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    transition: transform 180ms ease, border-color 180ms ease;
+  }
+  .card:hover { transform: translateY(-8px); border-color: var(--accent); }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .card-art {
+    margin: 12px 0;
+    aspect-ratio: 3 / 4;
+    border: 1px solid #3a2f24;
+    border-radius: 8px;
+    background-image: var(--weave);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 12px;
+    overflow: hidden;
+  }
+  .card-art img { width: 100%; height: 100%; object-fit: cover; border-radius: 7px; }
+  .card-art span {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: var(--mono-dimmer);
+    letter-spacing: 0.1em;
+  }
+  .card-title { font-family: Cinzel, serif; font-size: 22px; letter-spacing: 0.06em; color: #f2ead9; }
+  .card-sub { font-size: 16px; color: var(--ink-dimmer); font-style: italic; margin-top: 4px; }
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 5px 10px;
+    color: var(--tag-ink);
+  }
+
+  /* Detail sections */
+  .detail-section { border-top: 1px solid var(--border-section); padding: 72px 0; display: flex; flex-direction: column; gap: 44px; }
+  .detail-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 44px; align-items: start; }
+  .detail-left { display: flex; flex-direction: column; gap: 14px; }
+  .kicker { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); }
+  h2.detail-title { font-family: Cinzel, serif; font-size: clamp(34px, 5vw, 54px); line-height: 1.05; margin: 0; letter-spacing: 0.03em; }
+  .detail-sub { margin: 0; font-size: 19px; font-style: italic; color: var(--ink-dimmer); }
+  .portrait {
+    margin-top: 10px;
+    aspect-ratio: 3 / 4;
+    max-width: 340px;
+    border: 1px solid #3a2f24;
+    border-radius: 10px;
+    background-image: var(--weave);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    padding: 14px;
+    overflow: hidden;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; border-radius: 9px; }
+  .portrait span { font-family: "JetBrains Mono", monospace; font-size: 10px; color: var(--mono-dimmer); }
+  .detail-right { display: flex; flex-direction: column; gap: 20px; font-size: 19px; line-height: 1.7; color: var(--body-ink); }
+  .detail-right p { margin: 0; }
+
+  .fact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .fact-card { border: 1px solid var(--border-dim); border-radius: 12px; padding: 20px; background: var(--panel); }
+  .fact-label { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .fact-body { margin: 0; font-size: 17px; line-height: 1.6; color: var(--body-ink); }
+
+  .roller { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; border: 1px dashed var(--border); border-radius: 12px; padding: 20px 22px; }
+  .roll-btn {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .roll-btn:hover { background: var(--accent); color: var(--bg); }
+  .roll-line { margin: 0; flex: 1 1 320px; min-width: 0; font-size: 18px; line-height: 1.6; color: var(--body-ink); font-style: italic; }
+
+  /* Resources */
+  .resources-intro { display: flex; flex-direction: column; gap: 12px; max-width: 700px; }
+  .resources-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .resource-card { border: 1px solid var(--border); border-radius: 12px; padding: 24px; background: var(--panel); display: flex; flex-direction: column; gap: 12px; }
+  .resource-eyebrow { font-family: "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .resource-card h3 { font-family: Cinzel, serif; font-size: 24px; margin: 0; letter-spacing: 0.04em; }
+  .resource-card p { margin: 0; font-size: 17px; line-height: 1.65; color: var(--ink-dim); }
+  .resource-links { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+  .resource-links a {
+    font-size: 17px;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    width: fit-content;
+    transition: color 150ms ease;
+  }
+  .resource-links a:last-child { border-bottom: none; }
+  .resource-links a:hover { color: var(--accent-hover); }
+
+  footer {
+    border-top: 1px solid var(--border-section);
+    padding: 40px 0 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mono-dimmer);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Three cards · one name</div>
+    <h1 class="title">JAQOBIS</h1>
+    <p class="lede">The same name, drawn three different ways. Each card below is a version of Jaqobis I play — a different creed, a different wound, a different reason to be at your table. Pick one up and read the back.</p>
+    <div class="cta-row">
+      <a class="cta-btn" href="#resources">Build your own →</a>
+    </div>
+  </header>
+
+  <div class="card-grid">
+
+    <a href="#arcanist" class="card" style="--accent: var(--gold); --weave: repeating-linear-gradient(135deg, #221a13 0 7px, #1b1510 7px 14px);">
+      <div class="card-head"><span>I</span><span>Sorcerer</span></div>
+      <div class="card-art"><span>character art — the accidental arcanist</span></div>
+      <div class="card-title">The Accidental Arcanist</div>
+      <div class="card-sub">Cursed Scholar · burned the library that made him</div>
+      <div class="tag-row">
+        <span class="tag">Fire</span>
+        <span class="tag">Counterspell</span>
+        <span class="tag">Bow</span>
+      </div>
+    </a>
+
+    <a href="#blade" class="card" style="--accent: var(--purple); --weave: repeating-linear-gradient(135deg, #1e1a22 0 7px, #17141b 7px 14px);">
+      <div class="card-head"><span>II</span><span>Noble</span></div>
+      <div class="card-art"><span>character art — the hidden blade</span></div>
+      <div class="card-title">The Hidden Blade</div>
+      <div class="card-sub">Noble Ward · a dagger raised in a ballroom</div>
+      <div class="tag-row">
+        <span class="tag">Charm</span>
+        <span class="tag">Divination</span>
+        <span class="tag">Court</span>
+      </div>
+    </a>
+
+    <a href="#ward" class="card" style="--accent: var(--green);">
+      <div class="card-head"><span>III</span><span>Druid</span></div>
+      <div class="card-art"><img src="assets/images/wild-ward.png" alt="Portrait of the Wild Ward — Jaqobis as a druid, holding a moon-crowned staff in a misty forest"></div>
+      <div class="card-title">The Wild Ward</div>
+      <div class="card-sub">Wolfchild Survivor · raised by the pack that found him</div>
+      <div class="tag-row">
+        <span class="tag">Earth</span>
+        <span class="tag">Tracking</span>
+        <span class="tag">Instinct</span>
+      </div>
+    </a>
+
+  </div>
+
+  <section id="arcanist" class="detail-section" style="--accent: var(--gold);">
+    <div class="detail-top">
+      <div class="detail-left">
+        <div class="kicker">Card I</div>
+        <h2 class="detail-title">The Accidental Arcanist</h2>
+        <p class="detail-sub">Cursed Scholar — a cataloger who touched the wrong scroll and lost the ability to feel anything at all.</p>
+        <div class="portrait" style="--weave: repeating-linear-gradient(135deg, #221a13 0 8px, #1b1510 8px 16px);">
+          <span>portrait or Hero Forge render</span>
+        </div>
+      </div>
+      <div class="detail-right">
+        <p>He was a junior academic at the University of Ealune — thorough, careful, invisible. His job was cataloging the restricted collections: books seized from dead mages, artifacts from ruins, research too dangerous to shelve. Then a box labeled <em>Miscellaneous Documents — Historical Interest Only</em> gave up a scroll wrapped in black cloth, and the seal broke under his fingers because it wanted to.</p>
+        <p>Fire and sunlight wrote themselves into his blood. The cost arrived a heartbeat later: every nerve went cold, and the part of him capable of warmth, love, connection simply shut like a door. He watched the archive burn without feeling the heat. He grabbed a satchel of books and ran, and he has been running for three years.</p>
+        <p>Now the magic comes easily — fire, sun, and adversarial spellwork that turns other casters' power back on them — but it is volatile, and it erupts when emotion tries to surface in the hollow. He balances it with research, a bow, and distance. He steals books, chases rumors, interrogates dying mages. He calls it research. It is really a search for whether he can ever feel again.</p>
+      </div>
+    </div>
+    <div class="fact-grid">
+      <div class="fact-card">
+        <div class="fact-label">First impression</div>
+        <p class="fact-body">Ink-stained fingers and eyes that catalog you like a book. He doesn't react to pain or temperature the way people expect. It unnerves them.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Prized possession</div>
+        <p class="fact-body">The first book he stole after Ealune — a primer on elemental theory, margins crowded with desperate theories, wrapped in oilcloth against his own fire.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Approach to life</div>
+        <p class="fact-body">Research, adapt, survive. Emotions lead to mistakes, mistakes lead to fire, fire leads to death — so he stays clinical. It isn't really living, but it's what he has.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Would die for</div>
+        <p class="fact-body">The truth about the scroll, and making sure no one else is cursed by it. He can't feel that it matters. He remembers that it does.</p>
+      </div>
+    </div>
+    <div class="roller">
+      <button class="roll-btn" data-roll="arcanist">Roll a d20 · ask him something</button>
+      <p class="roll-line" data-line="arcanist">Roll to see what he tells you.</p>
+    </div>
+  </section>
+
+  <section id="blade" class="detail-section" style="--accent: var(--purple);">
+    <div class="detail-top">
+      <div class="detail-left">
+        <div class="kicker">Card II</div>
+        <h2 class="detail-title">The Hidden Blade</h2>
+        <p class="detail-sub">Noble Ward and Political Weapon — taken in at six, trained to cast where no one could see it.</p>
+        <div class="portrait" style="--weave: repeating-linear-gradient(135deg, #1e1a22 0 8px, #17141b 8px 16px);">
+          <span>portrait or Hero Forge render</span>
+        </div>
+      </div>
+      <div class="detail-right">
+        <p>The magic showed at six — a hunting dog that should have died, courtyard flowers blooming out of season. A noble house in the Gulf Nations saw both an asset and a liability and adopted him as a distant relative's orphan, rather than let the draft or a rival take him.</p>
+        <p>The training ran on two tracks. Publicly: etiquette, swordplay, archery, courtly politics — how to read a ballroom like a battlefield. Privately: the Weave, cast small. No grand gestures. Magic disguised as insight, as persuasion, as uncanny luck. A whispered charm in a negotiation, divination passed off as intuition, wards his family never knew were there.</p>
+        <p>Then a scandal — corruption, ties to Mirgathrukian warmongering — and rivals who knew he wasn't blood. His family sent him away to keep him from being seized. The eldest son said: <em>you've spent your whole life protecting us; now go find out who you are when you're not our hidden blade.</em> He took the signet ring and left.</p>
+      </div>
+    </div>
+    <div class="fact-grid">
+      <div class="fact-card">
+        <div class="fact-label">First impression</div>
+        <p class="fact-body">Perfect posture, courtly grace — and a wariness in the eyes that doesn't match the polite smile. Always watching for the hidden dagger.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Prized possession</div>
+        <p class="fact-body">A silver signet ring with his adoptive family's crest. Proof of who raised him, if not of blood. He touches it when he needs the reason he learned to survive both ballrooms and battlefields.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Approach to life</div>
+        <p class="fact-body">Patience and precision. A blade is only as good as the moment it's drawn — and magic is only as effective as the secret it remains.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Would die for</div>
+        <p class="fact-body">The family that chose him. The truth, if it keeps others from being used the way he was. And maybe, someday, someone he chooses to love freely.</p>
+      </div>
+    </div>
+    <div class="roller">
+      <button class="roll-btn" data-roll="blade">Roll a d20 · ask him something</button>
+      <p class="roll-line" data-line="blade">Roll to see what he tells you.</p>
+    </div>
+  </section>
+
+  <section id="ward" class="detail-section" style="--accent: var(--green);">
+    <div class="detail-top">
+      <div class="detail-left">
+        <div class="kicker">Card III</div>
+        <h2 class="detail-title">The Wild Ward</h2>
+        <p class="detail-sub">Wolfchild Survivor — hidden in a cellar at seven, raised for twelve years by the pack that found him.</p>
+        <div class="portrait">
+          <img src="assets/images/wild-ward.png" alt="Portrait of the Wild Ward — Jaqobis as a druid, holding a moon-crowned staff in a misty forest">
+        </div>
+      </div>
+      <div class="detail-right">
+        <p>Someone in the village reported the child who made crops grow and coaxed fire from cold embers. His parents hid him in the root cellar under a rug and a table and told him not to make a sound. Then they lied to the recruiters, and the recruiters didn't believe them.</p>
+        <p>He was under the floor when they died. His grief didn't explode outward — it drove down into soil and root and ancient stone, and the earth held him while he kept himself silent. Afterward he ran until he collapsed in a hollow between tree roots, and a scarred gray she-wolf lay down beside him instead of killing him.</p>
+        <p>Twelve years with the pack taught him magic by instinct rather than instruction — the rhythm of seasons, the language of wind through trees. At nineteen, druids and rangers found him, refined it, and taught him to be human among humans again. Their paths eventually diverged. Now he walks the roads between wilderness and society, looking for a pack he can truly belong to.</p>
+      </div>
+    </div>
+    <div class="fact-grid">
+      <div class="fact-card">
+        <div class="fact-label">First impression</div>
+        <p class="fact-body">How still he can be. No fidgeting, no wasted movement — watching everything like he's tracking it. People say he moves like an animal. They're not wrong.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Prized possession</div>
+        <p class="fact-body">A frayed leather cord his mother made. The only thing he grabbed before he ran, and he's never taken it off.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Approach to life</div>
+        <p class="fact-body">Trust your instincts. Watch before you act. The pack survives by patience and by striking only when it must — but survive first, question later.</p>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Would die for</div>
+        <p class="fact-body">His pack, wolves or people. Children hunted for what they can't control. The wild places that gave him sanctuary. And maybe, for justice.</p>
+      </div>
+    </div>
+    <div class="roller">
+      <button class="roll-btn" data-roll="ward">Roll a d20 · ask him something</button>
+      <p class="roll-line" data-line="ward">Roll to see what he tells you.</p>
+    </div>
+  </section>
+
+  <section id="resources" class="detail-section">
+    <div class="resources-intro">
+      <div class="eyebrow" style="letter-spacing:0.3em;">Ready to build a character?</div>
+      <h2 class="detail-title" style="font-size: clamp(30px, 4.5vw, 46px);">Draw your own card</h2>
+      <p class="lede" style="max-width:700px;">Every one of these started as a blank sheet and a few stubborn questions. Here's the shortest path from nothing to someone.</p>
+    </div>
+
+    <div class="resources-grid">
+
+      <div class="resource-card" style="--accent: var(--gold); --accent-hover: var(--gold-hover);">
+        <div class="resource-eyebrow">Recommended · digital</div>
+        <h3>D&amp;D Beyond</h3>
+        <p>It handles all the complexity and number crunching for you, so you can focus on building an awesome character. A step-by-step form guides you and explains everything along the way — and it plays well with virtual tabletops like Roll20 and Foundry.</p>
+        <div class="resource-links">
+          <a href="https://www.dndbeyond.com/" target="_blank" rel="noopener">Register for an account →</a>
+          <a href="https://www.dndnewbies.com/dnd-beyond-character-sheets/" target="_blank" rel="noopener">Breakdown of the D&amp;D Beyond character sheet →</a>
+        </div>
+      </div>
+
+      <div class="resource-card" style="--accent: var(--purple); --accent-hover: var(--purple-hover);">
+        <div class="resource-eyebrow">By hand · paper</div>
+        <h3>The 5e Player's Handbook</h3>
+        <p>If your game is in person — or your DM allows paper sheets online — build straight from the PHB.</p>
+        <div class="resource-links">
+          <a href="https://dnd.wizards.com/products/tabletop-games/trpg-resources/trpg-resources" target="_blank" rel="noopener">Printable character sheets →</a>
+          <a href="https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf" target="_blank" rel="noopener">Blank fillable form (go digital) →</a>
+          <a href="https://media.dndbeyond.com/compendium-images/phb/downloads/DnD_2024_Character-Sheet.pdf" target="_blank" rel="noopener">2024 character sheet →</a>
+          <a href="https://docs.google.com/document/d/1Oucnl3LK9iSxpEV7CRdoBK5mEkGsrfQBAbhRWZLp7MI/edit?usp=sharing" target="_blank" rel="noopener">Our walkthrough guide (with the PHB) →</a>
+          <a href="https://www.dndnewbies.com/character-sheets/" target="_blank" rel="noopener">How to read a 5e sheet →</a>
+        </div>
+      </div>
+
+      <div class="resource-card" style="--accent: var(--green); --accent-hover: var(--green-hover);">
+        <div class="resource-eyebrow">Then · make them yours</div>
+        <h3>More things you can do</h3>
+        <p>Numbers make a build. Answers make a person. Every card on this page came out of a questionnaire like the first one.</p>
+        <div class="resource-links">
+          <a href="https://www.roleplayingtips.com/characters/character-questionnaires/" target="_blank" rel="noopener">Character questionnaire →</a>
+          <a href="https://www.heroforge.com/" target="_blank" rel="noopener">Build a mini on Hero Forge →</a>
+          <a href="https://rolladvantage.com/tokenstamp/" target="_blank" rel="noopener">Make a VTT token →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <span>Jaqobis · three creeds, one name</span>
+    <span>Last updated September 2026</span>
+  </footer>
+
+</div>
+
+<script>
+  const LINES = {
+    arcanist: [
+      "“I compulsively read everything — labels, signs, notices on walls. Information is survival.”",
+      "“I touch things constantly. Textures I can’t feel, temperatures I can’t sense. Trying to remember what feeling felt like.”",
+      "“A bounty hunter cornered me in a tavern. I tried to surrender. The fire took the whole building. She’s scarred now. I’m the monster in her story.”",
+      "“Master Corwin told me knowledge is the only power that can’t be taken from you. Then I burned his life’s work.”",
+      "“Advice for my younger self? Don’t touch the glowing scroll. Don’t open the sealed box. Walk away.”",
+      "“When I channel the sun through the Weave, I sense something. Purpose, maybe. I think I’m becoming addicted to it.”",
+      "“I want to be seen as competent and in control. Not as the hollow space where humanity used to be.”",
+      "“The fire took my library. The scroll took my soul.”"
+    ],
+    blade: [
+      "“A rival’s heir caught me pulling truth out of a drunk ambassador. He whispered ‘I see you.’ Nothing since. I’m still waiting.”",
+      "“My first tutor said: make them think they came to the conclusion themselves. That’s real magic.”",
+      "“I hate theatrical mages. It’s tactically idiotic and it makes the rest of us look like carnival performers.”",
+      "“Also I hate wine. Had to fake enjoying it at far too many diplomatic functions.”",
+      "“I can’t stop reading people. Body language, tells, the rhythm of their words. It’s exhausting.”",
+      "“My sixteenth birthday, my father said: you are not our tool, you are our child. I cried. I don’t think he expected that.”",
+      "“I’m terrified of being ordinary. Of going back to being someone’s hidden blade.”",
+      "“True happiness? Standing in the sun, magic and all, without fear.”"
+    ],
+    ward: [
+      "“I check the exits in every room. I sleep light. The rangers tried to train it out of me. They couldn’t.”",
+      "“A hunter kept setting trophy traps in my forest. The third time, the wolves and I made sure he understood: this forest has teeth.”",
+      "“I can still speak to the wolves. The old ones. They tell me things. I don’t tell anyone — they’d try to use it.”",
+      "“Someone tried to get close to me once. I ran. Literally. Into the woods, for three days.”",
+      "“I hate small rooms, locked doors, crowds. And the sound of marching boots — that brings all of it back.”",
+      "“The druid sat on a log and said, the trees say you listen. That’s rare. She didn’t ask for anything. It changed something.”",
+      "“The night the alpha rested her head on my shoulder, I wasn’t alone anymore. I belonged.”",
+      "“I pray to no gods. The earth held me when I wept. Where were they?”"
+    ]
+  };
+
+  document.querySelectorAll("[data-roll]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const key = btn.getAttribute("data-roll");
+      const pool = LINES[key];
+      const n = 1 + Math.floor(Math.random() * 20);
+      const line = pool[Math.floor(Math.random() * pool.length)];
+      const out = document.querySelector('[data-line="' + key + '"]');
+      out.textContent = "d20 → " + n + "  ·  " + line;
+    });
+  });
+</script>
+</body>
+</html>
